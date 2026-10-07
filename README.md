@@ -91,12 +91,13 @@ In linear B, shuffling `pm25_today` raises MAE by 26.4 and `temp_mean` by 7.4; t
 
 ## Findings
 
-> Rewrite these in your own words.
-
-- All models with weather beat persistence in four of five folds; in fold 2 they were about equal (forest B 17.8 vs 18.4).
-- Averaged over folds, the best models cut MAE from 21.7 to 20.0 (about 8%). The single-split gap was larger (about 13%), so the five-fold figure is the safer one.
-- Adding season, or using a random forest instead of linear regression, changed the mean MAE by 0.1 or less compared with linear B.
-- The improvement over persistence varies with the coverage threshold (5.4% to 8.4% for linear B).
+- I compared linear regression and a random forest against a persistence baseline (tomorrow = today) on five time-ordered folds. The mean MAE was 21.7 for persistence, 21.2 for linear regression with PM2.5 only (A), and 20.0 for both linear regression and random forest with PM2.5 + weather (B). The best models were about 8% better than persistence.
+- PM2.5 history alone gave a small gain (21.2 vs 21.7, about 2%). Adding weather lowered the mean MAE further to 20.0.
+- The gain was not the same in every fold. The random forest (B) beat persistence in all five folds; linear regression (B) beat it in four of five (in fold 2 it was 18.6 vs 18.4). MAE changed by about 7 between folds (about 18 to 25), more than it changed between models.
+- On the single 80/20 split the gap looked larger (MAE 25.5 for persistence vs 22.2 for linear B, about 13%), but the test period also had a higher average PM2.5 than the training period (108.5 vs 92.4). The five-fold result is the safer summary.
+- Linear regression and random forest gave the same mean MAE (20.0), so the more complex model added nothing here. A seasonal feature alone lowered MAE to 20.3, and adding it to the weather model changed little (19.9), which suggests weather and time of year carry overlapping information.
+- The improvement over persistence depended on the coverage rule: 8.4% with at least 12 hours per day, 8.0% with 18, and 5.4% with 22.
+- In permutation importance, today's PM2.5 mattered most (MAE rose by 26.4 when shuffled in linear B), followed by mean temperature (7.4); the other inputs raised MAE by less than 1. This shows what the trained model relies on; it does not show that temperature affects PM2.5.
 
 ## Limitations
 
@@ -130,4 +131,3 @@ The notebook `notebooks/dhaka_pm25_forecasting.ipynb` was run on Kaggle with the
 - `notebooks/` analysis notebook
 - `figures/` saved figures
 - `data/raw/` raw data (git-ignored, not in the repository)
-- `src/` reserved for scripts
