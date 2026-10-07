@@ -15,6 +15,7 @@ Predict the next day's mean PM2.5 (µg/m³) from today's and the previous two da
 ## Dataset
 
 Both CSVs were produced in Project 1; source, license notes and credits are in that README.
+Data credit: PM2.5 from OpenAQ; hourly weather from Open-Meteo (ERA5 reanalysis). Licenses and full citations are in the Project 1 README.
 
 - **PM2.5:** hourly values from OpenAQ location 8415 (sensor 24434), 66,379 rows, 2016-11-09 to 2025-03-24. 83.5% of hourly slots in that period have a value (61,229 of 73,364).
 - **Weather:** hourly ERA5 reanalysis via Open-Meteo, 73,416 rows, 2016-11-09 to 2025-03-25 (temperature_2m, rain, wind_speed_10m).
